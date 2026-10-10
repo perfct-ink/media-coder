@@ -11,7 +11,7 @@ struct GenerateAppIcon {
         for points in [16, 32, 128, 256, 512] {
             for scale in [1, 2] {
                 let pixels = CGFloat(points * scale)
-                let artwork = FilmIconArtwork(size: pixels * 0.80)
+                let artwork = FilmIconDrawing(size: pixels * 0.80)
                     .frame(width: pixels, height: pixels)
                     .environment(\.colorScheme, .light)
                 let renderer = ImageRenderer(content: artwork)
@@ -22,6 +22,14 @@ struct GenerateAppIcon {
                 }
                 let name = "icon_\(points)x\(points)@\(scale)x.png"
                 try png.write(to: folder.appendingPathComponent(name))
+                if points == 512 && scale == 2 {
+                    let logo = folder.deletingLastPathComponent().appendingPathComponent("AppLogo.imageset")
+                    try FileManager.default.createDirectory(at: logo, withIntermediateDirectories: true)
+                    try png.write(to: logo.appendingPathComponent("logo.png"))
+                    let metadata: [String: Any] = ["images": [["idiom": "universal", "filename": "logo.png"]], "info": ["author": "xcode", "version": 1]]
+                    try JSONSerialization.data(withJSONObject: metadata, options: [.prettyPrinted, .sortedKeys])
+                        .write(to: logo.appendingPathComponent("Contents.json"))
+                }
                 images.append(["idiom": "mac", "size": "\(points)x\(points)", "scale": "\(scale)x", "filename": name])
             }
         }

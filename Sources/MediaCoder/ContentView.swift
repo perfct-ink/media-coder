@@ -157,7 +157,7 @@ struct ContentView: View {
 
     private var dropArea: some View {
         VStack(spacing: 8) {
-            Image(systemName: "arrow.down.doc.fill").font(.system(size: 24)).foregroundStyle(accent)
+            FilmIconArtwork(size: 42)
             Text("Drop videos here").font(.system(size: 14, weight: .semibold))
             Text("MPG, AVI, MOV, MP4, and more").font(.caption2).foregroundStyle(.secondary)
             Button("Browse files…") { model.chooseFiles() }.buttonStyle(.link).font(.caption)
@@ -185,8 +185,10 @@ struct ContentView: View {
                             ForEach(model.jobs) { job in
                                 Button { model.selectedJobID = job.id } label: {
                                     HStack(spacing: 9) {
-                                        Image(systemName: job.status == .done ? "checkmark.circle.fill" : "film")
-                                            .foregroundStyle(job.status == .done ? Color.green : accent)
+                                        FilmIconArtwork(size: 30)
+                                            .overlay(alignment: .bottomTrailing) {
+                                                if job.status == .done { Image(systemName: "checkmark.circle.fill").foregroundStyle(.white, .green).font(.system(size: 12)) }
+                                            }
                                         VStack(alignment: .leading, spacing: 5) {
                                             Text(job.source.lastPathComponent).font(.system(size: 12, weight: .medium)).lineLimit(2).multilineTextAlignment(.leading)
                                             Text(job.status == .converting ? "Converting · \(Int(job.progress * 100))%" : job.status.label).font(.caption2).foregroundStyle(.secondary)
@@ -252,8 +254,10 @@ struct ContentView: View {
     private var videoDetail: some View {
         if let job = model.selectedJob {
             VStack(spacing: 12) {
-                Image(systemName: job.status == .done ? "checkmark.circle.fill" : "film")
-                    .font(.system(size: 38)).foregroundStyle(job.status == .done ? Color.green : accent)
+                FilmIconArtwork(size: 64)
+                    .overlay(alignment: .bottomTrailing) {
+                        if job.status == .done { Image(systemName: "checkmark.circle.fill").foregroundStyle(.white, .green).font(.system(size: 20)) }
+                    }
                 Text(job.source.lastPathComponent).font(.title3.weight(.semibold)).multilineTextAlignment(.center).textSelection(.enabled)
                 sourceSpecs(job)
                 Text(job.status.label).foregroundStyle(.secondary)

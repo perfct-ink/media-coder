@@ -75,7 +75,7 @@ The integration checks create temporary MPG and AVI fixtures and verify real con
 
 ## App icon
 
-The window header and macOS app icon share `FilmIconArtwork.swift`. PNG assets are checked into `Sources/MediaCoder/Assets.xcassets/AppIcon.appiconset` and compiled into the app by Xcode. To regenerate them after changing the artwork:
+The header, sidebar, drop area, video details, settings, and macOS icon use the same rendered logo. `FilmIconArtwork.swift` contains the source drawing and the reusable image view. PNG assets are checked into `Sources/MediaCoder/Assets.xcassets/AppIcon.appiconset` and compiled into the app by Xcode. The generator also writes the identical 1024-pixel artwork into `AppLogo.imageset` for in-app branding; the app applies it to its Dock icon at launch. To regenerate them after changing the artwork:
 
 ```sh
 swiftc -parse-as-library Sources/MediaCoder/FilmIconArtwork.swift scripts/generate-app-icon.swift -o /tmp/media-coder-generate-icon

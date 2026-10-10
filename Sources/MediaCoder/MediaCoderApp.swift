@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 @main
 struct MediaCoderApp: App {
@@ -7,6 +8,11 @@ struct MediaCoderApp: App {
         WindowGroup {
             ContentView(model: model)
                 .frame(minWidth: 1000, minHeight: 620)
+                .onAppear {
+                    if let logo = NSImage(named: "AppLogo") {
+                        NSApplication.shared.applicationIconImage = logo
+                    }
+                }
         }
         .defaultSize(width: 1100, height: 740)
         .commands {

@@ -13,7 +13,10 @@ struct CodecSupportView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Codec support").font(.title2.bold())
+            HStack(spacing: 10) {
+                FilmIconArtwork(size: 40)
+                Text("Codec support").font(.title2.bold())
+            }
             Text("Most codecs are built into the video engine. Download it once, or use your own FFmpeg build for additional codecs.")
                 .font(.callout).foregroundStyle(.secondary)
             GroupBox {

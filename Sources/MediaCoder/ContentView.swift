@@ -21,8 +21,6 @@ struct ContentView: View {
                 Spacer()
                 SettingsLink { Label("Settings", systemImage: "gearshape") }
                     .buttonStyle(.bordered)
-                Text("LOCAL & PRIVATE").font(.system(size: 10, weight: .semibold, design: .monospaced))
-                    .tracking(1).foregroundStyle(.secondary)
             }
 
             if model.ffmpegURL == nil { setupBanner }
@@ -102,13 +100,6 @@ struct ContentView: View {
                 Button("Choose folder…") { model.chooseOutputFolder() }
             }.disabled(model.isConverting)
 
-            ScrollView {
-                videoDetail.frame(maxWidth: .infinity)
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                .task(id: "\(model.selectedJobID?.uuidString ?? "")|\(model.ffmpegURL?.path ?? "")") {
-                    await model.loadSourceSpecs()
-                }
-
             HStack {
                 Text(model.isConverting ? "Converting…" : "Original files are always kept.")
                     .font(.system(size: 12)).foregroundStyle(.secondary)
@@ -123,6 +114,21 @@ struct ContentView: View {
                         .disabled(!model.hasValidSize || model.waitingCount == 0 || model.ffmpegURL == nil || model.isInspecting || model.capabilities == nil || model.availableFormats.isEmpty || model.isDownloadingPack)
                 }
             }
+
+            Rectangle()
+                .fill(Color.primary.opacity(0.25))
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, -28)
+                .accessibilityHidden(true)
+
+            ScrollView {
+                videoDetail.frame(maxWidth: .infinity)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                .task(id: "\(model.selectedJobID?.uuidString ?? "")|\(model.ffmpegURL?.path ?? "")") {
+                    await model.loadSourceSpecs()
+                }
+
         }
             .padding(28)
         }.background(Color(nsColor: .windowBackgroundColor)).tint(accent)
@@ -174,8 +180,8 @@ struct ContentView: View {
                 Spacer()
                 Button { model.chooseFiles() } label: { Image(systemName: "plus") }.help("Add videos")
             }.padding(.horizontal, 16).padding(.top, 20)
-            dropArea.padding(.horizontal, 12)
             if model.jobs.isEmpty {
+                dropArea.padding(.horizontal, 12)
                 Text("Add videos to your queue.").font(.caption).foregroundStyle(.secondary).padding(16)
                 Spacer()
             } else {

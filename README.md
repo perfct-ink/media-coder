@@ -4,13 +4,13 @@ A small, native SwiftUI video converter for macOS 14 or later. Drop videos, choo
 
 ## Run
 
-Run `make` (or `make all`) to set up the build tools, build the development app, and open it.
+Run `make` (or `make all`) to run `make dev`, which calls `make open`: close the running app, set up the build tools, build Release, and launch it.
 
 ```sh
 make            # setup + dev
-make dev        # build Debug and open a new app instance
+make dev        # run make open
 make build      # build optimized Release
-make open       # build Release and open a new app instance
+make open       # close the app, build Release, and launch
 make close      # stop this project's Debug and Release app instances
 make clean      # remove all local build artifacts
 make help       # grouped command reference
@@ -18,9 +18,9 @@ make help       # grouped command reference
 
 `make setup` checks for full Xcode and installs XcodeGen via Homebrew if it is missing. Install Xcode and Homebrew first. FFmpeg is optional at build time and can be downloaded from the app.
 
-Debug and Release apps live at `build/Build/Products/Debug/MediaCoder.app` and `build/Build/Products/Release/MediaCoder.app`. Xcode automatically updates existing build products, so `make dev` does not delete them first. `make clean` removes `build/`, `.build/`, and local `DerivedData/`; it preserves source files, the project, preferences, and downloaded codec engines. Release builds are optimized local apps; signing/notarization for distribution is a separate step.
+The Release app lives at `build/Build/Products/Release/MediaCoder.app`. For a Debug build, run the project in Xcode. Xcode automatically updates existing build products, so `make dev` does not delete them first. `make clean` removes `build/`, `.build/`, and local `DerivedData/`; it preserves source files, the project, preferences, and downloaded codec engines. Release builds are optimized local apps; signing/notarization for distribution is a separate step.
 
-`make close` sends a termination signal to native app processes whose executable path exactly matches this project’s Debug or Release app. It does not close other checkouts or installed copies. Run it after conversions finish if you want to keep the current work.
+`make close` sends a termination signal to native app processes whose executable path exactly matches this project’s Debug or Release app. It does not close other checkouts or installed copies. `make open` (and therefore `make dev`) runs it before building, so finish any conversions before restarting.
 
 For development, you can also open `MediaCoder.xcodeproj` in Xcode or use `swift run`.
 
@@ -72,3 +72,12 @@ make build
 ```
 
 The integration checks create temporary MPG and AVI fixtures and verify real conversions, resizing, silent video handling, malformed input cleanup, cancellation, and existing output protection. The test script currently expects Apple Silicon Homebrew paths.
+
+## App icon
+
+The window header and macOS app icon share `FilmIconArtwork.swift`. PNG assets are checked into `Sources/MediaCoder/Assets.xcassets/AppIcon.appiconset` and compiled into the app by Xcode. To regenerate them after changing the artwork:
+
+```sh
+swiftc -parse-as-library Sources/MediaCoder/FilmIconArtwork.swift scripts/generate-app-icon.swift -o /tmp/media-coder-generate-icon
+/tmp/media-coder-generate-icon Sources/MediaCoder/Assets.xcassets/AppIcon.appiconset
+```

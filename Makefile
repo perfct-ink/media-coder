@@ -7,14 +7,15 @@ all: dev
 setup:
 	@./scripts/setup-build.sh
 
-dev: setup
-	@./scripts/build-app.sh Debug
-	@open -n "build/Build/Products/Debug/MediaCoder.app"
+dev:
+	@$(MAKE) open
 
 build: setup
 	@./scripts/build-app.sh Release
 
-open: build
+open:
+	@$(MAKE) close
+	@$(MAKE) build
 	@open -n "build/Build/Products/Release/MediaCoder.app"
 
 close:
@@ -29,13 +30,13 @@ help:
 	  'Media Coder commands' \
 	  '' \
 	  'Getting started' \
-	  '  make / make all  Set up build tools, build for development, and open the app.' \
+	  '  make / make all  Run dev: close the app, build Release, and open it.' \
 	  '  make setup       Check Xcode and install XcodeGen if needed (requires Homebrew).' \
 	  '' \
 	  'Build and run' \
-	  '  make dev         Build Debug and open a new app instance.' \
+	  '  make dev         Run make open (close, build Release, and launch).' \
 	  '  make build       Build the optimized Release app for production.' \
-	  '  make open        Build Release and open a new app instance.' \
+	  '  make open        Run make close, build Release, and launch the app.' \
 	  '  make close       Stop running Debug and Release app instances from this project.' \
 	  '' \
 	  'Maintenance' \

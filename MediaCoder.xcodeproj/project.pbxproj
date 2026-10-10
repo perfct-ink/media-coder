@@ -7,16 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EB3B119F6D8907FADDEF5FD /* FilmIconArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4218810D7D98A0F98907D1DA /* FilmIconArtwork.swift */; };
 		3E9D7FC2955B32D0158E5963 /* CodecSupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3983C12479C52311D702C81 /* CodecSupportView.swift */; };
 		40BC09624412AE7E4B8C34B6 /* CodecSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2BB724416B3F963497CC1F /* CodecSupport.swift */; };
 		4558A9137B8C6004268E8BEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAB3B601D583C24AF009CF4 /* ContentView.swift */; };
 		6CC6D937256858BF8E2BA937 /* ConverterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B6257BC00BA933C58ECB21 /* ConverterModel.swift */; };
 		7F926D6214F677F2B34DA38F /* MediaCoderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8E55B67327F59FCAD252F /* MediaCoderApp.swift */; };
 		A3D5B8C5EBCB7A81434A9504 /* ConversionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2F6B8A91C6D790A0D7D26E /* ConversionEngine.swift */; };
+		D8BC3D623D9F67B9BE8FADB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8461E1F37BEE2DEF57EDE55A /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4218810D7D98A0F98907D1DA /* FilmIconArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmIconArtwork.swift; sourceTree = "<group>"; };
 		4F2F6B8A91C6D790A0D7D26E /* ConversionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionEngine.swift; sourceTree = "<group>"; };
+		8461E1F37BEE2DEF57EDE55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB2BB724416B3F963497CC1F /* CodecSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodecSupport.swift; sourceTree = "<group>"; };
 		D3983C12479C52311D702C81 /* CodecSupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodecSupportView.swift; sourceTree = "<group>"; };
 		D6E8E55B67327F59FCAD252F /* MediaCoderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCoderApp.swift; sourceTree = "<group>"; };
@@ -45,11 +49,13 @@
 		AC8B3E2AEA025446147D5627 /* MediaCoder */ = {
 			isa = PBXGroup;
 			children = (
+				8461E1F37BEE2DEF57EDE55A /* Assets.xcassets */,
 				CB2BB724416B3F963497CC1F /* CodecSupport.swift */,
 				D3983C12479C52311D702C81 /* CodecSupportView.swift */,
 				DDAB3B601D583C24AF009CF4 /* ContentView.swift */,
 				4F2F6B8A91C6D790A0D7D26E /* ConversionEngine.swift */,
 				E3B6257BC00BA933C58ECB21 /* ConverterModel.swift */,
+				4218810D7D98A0F98907D1DA /* FilmIconArtwork.swift */,
 				D6E8E55B67327F59FCAD252F /* MediaCoderApp.swift */,
 			);
 			name = MediaCoder;
@@ -64,6 +70,7 @@
 			buildConfigurationList = 80D23DDC88D6BF81F7C0C977 /* Build configuration list for PBXNativeTarget "MediaCoder" */;
 			buildPhases = (
 				C00D3F7D0F5C2A1BDB5DEB0A /* Sources */,
+				41E3A40520BD761727AEA215 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -109,6 +116,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		41E3A40520BD761727AEA215 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8BC3D623D9F67B9BE8FADB7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C00D3F7D0F5C2A1BDB5DEB0A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -119,6 +137,7 @@
 				4558A9137B8C6004268E8BEB /* ContentView.swift in Sources */,
 				A3D5B8C5EBCB7A81434A9504 /* ConversionEngine.swift in Sources */,
 				6CC6D937256858BF8E2BA937 /* ConverterModel.swift in Sources */,
+				2EB3B119F6D8907FADDEF5FD /* FilmIconArtwork.swift in Sources */,
 				7F926D6214F677F2B34DA38F /* MediaCoderApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

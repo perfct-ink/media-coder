@@ -13,10 +13,7 @@ struct ContentView: View {
             Divider()
             VStack(alignment: .leading, spacing: 22) {
             HStack(spacing: 12) {
-                Image(systemName: "film.stack.fill")
-                    .font(.system(size: 26)).foregroundStyle(.white)
-                    .frame(width: 52, height: 52)
-                    .background(accent.gradient, in: RoundedRectangle(cornerRadius: 14))
+                FilmIconArtwork()
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Media Coder").font(.system(size: 25, weight: .semibold))
                     Text("Convert your videos or extract their audio.").foregroundStyle(.secondary)
@@ -29,22 +26,6 @@ struct ContentView: View {
             }
 
             if model.ffmpegURL == nil { setupBanner }
-
-            VStack(spacing: 10) {
-                Image(systemName: "arrow.down.doc.fill").font(.system(size: 30)).foregroundStyle(accent)
-                Text("Drop videos here").font(.system(size: 19, weight: .semibold))
-                HStack(spacing: 4) {
-                    Text("MPG, AVI, MOV, MP4, MKV, and more · or")
-                    Button("browse files") { model.chooseFiles() }.buttonStyle(.link)
-                }.font(.system(size: 12)).foregroundStyle(.secondary)
-            }
-            .frame(maxWidth: .infinity).padding(.vertical, 27)
-            .background(accent.opacity(isTargeted ? 0.12 : 0.04), in: RoundedRectangle(cornerRadius: 16))
-            .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(accent.opacity(isTargeted ? 0.8 : 0.3), style: StrokeStyle(lineWidth: 1.5, dash: [6, 5])))
-            .dropDestination(for: URL.self) { urls, _ in
-                model.add(urls)
-                return !urls.isEmpty
-            } isTargeted: { isTargeted = $0 }
 
             HStack(alignment: .top, spacing: 24) {
                 VStack(alignment: .leading, spacing: 8) {
@@ -174,6 +155,18 @@ struct ContentView: View {
         }.padding(14).background(Color.orange.opacity(0.09), in: RoundedRectangle(cornerRadius: 12))
     }
 
+    private var dropArea: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "arrow.down.doc.fill").font(.system(size: 24)).foregroundStyle(accent)
+            Text("Drop videos here").font(.system(size: 14, weight: .semibold))
+            Text("MPG, AVI, MOV, MP4, and more").font(.caption2).foregroundStyle(.secondary)
+            Button("Browse files…") { model.chooseFiles() }.buttonStyle(.link).font(.caption)
+        }
+        .frame(maxWidth: .infinity).padding(.vertical, 20)
+        .background(accent.opacity(isTargeted ? 0.12 : 0.04), in: RoundedRectangle(cornerRadius: 12))
+        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(accent.opacity(isTargeted ? 0.8 : 0.3), style: StrokeStyle(lineWidth: 1.5, dash: [6, 5])))
+    }
+
     private var sidebar: some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack {
@@ -181,6 +174,7 @@ struct ContentView: View {
                 Spacer()
                 Button { model.chooseFiles() } label: { Image(systemName: "plus") }.help("Add videos")
             }.padding(.horizontal, 16).padding(.top, 20)
+            dropArea.padding(.horizontal, 12)
             if model.jobs.isEmpty {
                 Text("Add videos to your queue.").font(.caption).foregroundStyle(.secondary).padding(16)
                 Spacer()
@@ -215,7 +209,10 @@ struct ContentView: View {
                 Button("Clear completed") { model.clearFinished() }.buttonStyle(.link).disabled(model.isConverting).padding(16)
             }
         }.frame(width: 250).background(Color(nsColor: .underPageBackgroundColor))
-        .dropDestination(for: URL.self) { urls, _ in model.add(urls); return !urls.isEmpty }
+        .dropDestination(for: URL.self) { urls, _ in
+            model.add(urls)
+            return !urls.isEmpty
+        } isTargeted: { isTargeted = $0 }
     }
 
     @ViewBuilder
